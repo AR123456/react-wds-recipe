@@ -5,7 +5,7 @@ import CounterFunctionHook from "./CounterFunctionHook";
 export const ThemeContext = React.createContext();
 
 function App() {
-  const [theme, setTheme] = useState("red");
+  const [theme, setTheme] = useState("green");
   return (
     // wrap return in the proivider here the value is state in application
     <ThemeContext.Provider value={{ backgroundColor: theme }}>
