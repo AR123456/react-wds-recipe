@@ -1,0 +1,5 @@
+/* normalize is module to make things consistent accross browsers
+getting this from create react app 
+*/
+@import-normalize;
+@import "recipe-list.css";
