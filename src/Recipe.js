@@ -1,10 +1,11 @@
 import React from "react";
 
-const Recipe = () => {
+const Recipe = (props) => {
+  const { name, cookTime, servings, instructions } = props;
   return (
     <div>
       <div>
-        <h1>Plain Chicken</h1>
+        <h1> {name}</h1>
 
         <div>
           <button>Edit</button>
@@ -13,15 +14,15 @@ const Recipe = () => {
       </div>
       <div>
         <span>Cook time:</span>
-        <span>1:45</span>
+        <span>{cookTime}</span>
       </div>
       <div>
         <span>Servings:</span>
-        <span>3</span>
+        <span>{servings}</span>
       </div>
       <div>
         <span>Instructions:</span>
-        <div>do this and that</div>
+        <div>{instructions}</div>
       </div>
     </div>
   );
