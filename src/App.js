@@ -1,48 +1,50 @@
-import React from "react";
-import RecipeList from "./RecipeList";
+import React, { useState, useEffect } from "react";
+import { createGlobalStyle } from "styled-components";
+import { StyledApp } from "./AppStyles";
+import { createCalendar } from "./helpers";
+import Hatch from "./Hatch";
 
-function App() {
-  return <RecipeList recipes={sampleRecipes}></RecipeList>;
+const GlobalStyle = createGlobalStyle`
+body {
+  background: center / cover url("./img/calendar_backdrop.jpg");
+  margin: 0;
 }
-const sampleRecipes = [
-  {
-    id: 1,
-    name: "Plain Chicken",
-    servings: 3,
-    cookTime: "1:45",
-    instructions:
-      "1. Put salt on chicken\n2. Put chicken in oven\n3. Eat chicken",
-    ingredients: [
-      {
-        id: 1,
-        name: "Chicken",
-        amount: "2 Pounds",
-      },
-      {
-        id: 2,
-        name: "Salt",
-        amount: "1 Tbs",
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Plain Pork",
-    servings: 5,
-    cookTime: "0:45",
-    instructions: "1. Put paprika on pork\n2. Put pork in oven\n3. Eat pork",
-    ingredients: [
-      {
-        id: 1,
-        name: "Pork",
-        amount: "3 Pounds",
-      },
-      {
-        id: 2,
-        name: "Paprika",
-        amount: "2 Tbs",
-      },
-    ],
-  },
-];
+`;
+function App() {
+  const [hatches, setHatches] = useState(createCalendar());
+  // setting calendar to local storaage
+  useEffect(() => {
+    const calendar = localStorage.calendar
+      ? JSON.parse(localStorage.calendar)
+      : createCalendar();
+    setHatches(calendar);
+  }, []);
+  useEffect(() => {
+    hatches.length && localStorage.setItem("calendar", JSON.stringify(hatches));
+  }, [hatches]);
+
+  const handleFlipHatch = id => {
+    const updatedHatches = hatches.map(hatch =>
+      hatch.id === id ? { ...hatch, open: !hatch.open } : hatch
+    );
+    setHatches(updatedHatches);
+  };
+
+  console.log(hatches);
+  return (
+    <>
+      <GlobalStyle />
+      <StyledApp>
+        {hatches.map(hatch => (
+          <Hatch
+            key={hatch.id}
+            hatchData={hatch}
+            handleClick={handleFlipHatch}
+          />
+        ))}
+      </StyledApp>
+    </>
+  );
+}
+
 export default App;
