@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RecipeList from "./RecipeList";
 import "../css/app.css";
 import uuidv4 from "uuid/v4";
-
+export const RecipeContext = React.createContext();
+const LOCAL_STORAGE_KEY = "coodingWithReact.recipes";
 function App() {
   const [recipes, setRecipes] = useState(sampleRecipes);
+
+  useEffect(() => {
+    const recipeJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (recipeJSON != null) {
+      setRecipes(JSON.parse(recipeJSON));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(recipes));
+  }, [recipes]);
+  const recipeContextValue = {
+    handleRecipeAdd: handleRecipeAdd,
+    handleRecipeDelete: handleRecipeDelete,
+  };
 
   function handleRecipeAdd() {
     const newRecipe = {
@@ -29,11 +44,13 @@ function App() {
   }
 
   return (
-    <RecipeList
-      recipes={recipes}
-      handleRecipeAdd={handleRecipeAdd}
-      handleRecipeDelete={handleRecipeDelete}
-    ></RecipeList>
+    <RecipeContext.Provider value={recipeContextValue}>
+      <RecipeList
+        recipes={recipes}
+        // handleRecipeAdd={handleRecipeAdd}
+        // handleRecipeDelete={handleRecipeDelete}
+      ></RecipeList>
+    </RecipeContext.Provider>
   );
 }
 
