@@ -1,16 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import IngredientList from "./IngredientList";
 import { RecipeContext } from "./App";
 
 const Recipe = (props) => {
   const { handleRecipeDelete } = useContext(RecipeContext);
   const { id, name, cookTime, servings, instructions, ingredients } = props;
-  useEffect(() => {
-    console.log("render");
-    return () => {
-      console.log("Unmount");
-    };
-  }, []);
+
   return (
     <div className="recipe">
       <div className="recipe__header">

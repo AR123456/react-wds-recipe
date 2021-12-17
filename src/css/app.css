@@ -1,26 +1,27 @@
-/* normalize is module to make things consistent accross browsers
-getting this from create react app 
-*/
 @import-normalize;
 @import "font.css";
-@import "recipe-list.css";
 @import "buttons.css";
+@import "recipe-list.css";
 @import "ingredient-list.css";
 @import "recipe.css";
+@import "recipe-edit.css";
 
-/* https://stackoverflow.com/questions/31317238/why-use-selector-in-combination-with-before-and-after */
 *,
 *::before,
 *::after {
   font-family: Gotham Rounded, sans-serif;
+  box-sizing: border-box;
 }
+
 html {
   font-size: 25px;
 }
+
 body {
   padding: 0;
   margin: 0;
 }
+
 .mr-1 {
   margin-right: 5px;
 }
