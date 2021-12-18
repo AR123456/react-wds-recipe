@@ -20,6 +20,7 @@ function App() {
   const recipeContextValue = {
     handleRecipeAdd: handleRecipeAdd,
     handleRecipeDelete: handleRecipeDelete,
+    handleRecipeChange: handleRecipeChange,
   };
 
   function handleRecipeAdd() {
@@ -39,6 +40,14 @@ function App() {
       ],
     };
     setRecipes([...recipes, newRecipe]);
+  }
+
+  function handleRecipeChange(id, recipe) {
+    // creater a dup of array to mutate and set as new state
+    const newRecipes = [...recipes];
+    const index = newRecipes.findIndexJ((r) => r.id === id);
+    newRecipes[index] = recipe;
+    setRecipes(newRecipes);
   }
   function handleRecipeDelete(id) {
     setRecipes(recipes.filter((recipe) => recipe.id !== id));
