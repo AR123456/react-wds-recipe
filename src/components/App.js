@@ -38,18 +38,19 @@ function App() {
     const newRecipe = {
       //  uuidv4 for a unique id
       id: uuidv4(),
-      name: "New",
+      name: "",
       servings: 1,
-      cookTime: "1:00",
-      instructions: "instr.",
+      cookTime: "",
+      instructions: "",
       ingredients: [
         {
           id: uuidv4(),
-          name: "Ing Name",
-          amount: "1 TBS",
+          name: "",
+          amount: "",
         },
       ],
     };
+    setSelectedRecipeId(newRecipe.id);
     setRecipes([...recipes, newRecipe]);
   }
 
